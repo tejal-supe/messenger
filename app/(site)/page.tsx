@@ -9,9 +9,9 @@ export default function Home() {
           height="48"
           width="48"
           className="mx-auto w-auto"
-          src="/images/logo.png"
+          src="/images/logo1.png"
         />
-        <h3 className="mt-4 text-center tracking-normal text-xl text-gray-600">
+        <h3 className="mt-2 font-bold text-center tracking-wide text-lg text-[#4d4dff]">
           {" "}
           Sign in to your account
         </h3>
