@@ -3,11 +3,14 @@
 import { useCallback, useState } from "react";
 import { useForm, FieldValues, SubmitHandler } from "react-hook-form";
 import {BsGithub , BsGoogle} from "react-icons/bs"
+import axios from "axios";
 import Button from "@/app/components/Button";
 import Input from "@/app/components/Inputs/Input";
 import AuthSocialButton from "./AuthSocialButton";
+import config from "@/app/config/routers.json"
 
 type Variant = "LOGIN" | "REGISTER";
+const Register_Api = config.REGISTER;
 
 const AuthForm = () => {
   const [variant, setVariant] = useState<Variant>("LOGIN");
@@ -29,15 +32,16 @@ const AuthForm = () => {
     defaultValues: {
       name: "",
       email: "",
-      pass: "",
+      password: "",
     },
   });
 
   const onSubmit: SubmitHandler<FieldValues> = (data) => {
+    console.log(data,'data')
     setIsLoading(true);
 
     if (variant === "REGISTER") {
-      //axios register
+     axios.post(Register_Api,data)
     }
     if (variant === "LOGIN") {
       //login nextAuth
@@ -57,7 +61,7 @@ const AuthForm = () => {
           <Input
             label="Email"
             register={register}
-            id="Email"
+            id="email"
             errors={errors}
             type="email"
             disabled={isLoading}
@@ -65,7 +69,7 @@ const AuthForm = () => {
           <Input
             label="Password"
             register={register}
-            id="Pass"
+            id="password"
             errors={errors}
             type="password"
             disabled={isLoading}
