@@ -3,7 +3,10 @@
 import { useCallback, useState } from "react";
 import { useForm, FieldValues, SubmitHandler } from "react-hook-form";
 import {BsGithub , BsGoogle} from "react-icons/bs"
+import toast from "react-hot-toast";
 import axios from "axios";
+import {signIn} from "next-auth/react"
+
 import Button from "@/app/components/Button";
 import Input from "@/app/components/Inputs/Input";
 import AuthSocialButton from "./AuthSocialButton";
@@ -42,9 +45,24 @@ const AuthForm = () => {
 
     if (variant === "REGISTER") {
      axios.post(Register_Api,data)
+     .then(()=>{toast.success("User is created!");setVariant("LOGIN")})
+     .catch(()=>toast.error("Something went wrong while registering"))
+     .finally(()=>setIsLoading(false))
     }
     if (variant === "LOGIN") {
-      //login nextAuth
+     signIn('credentials',{
+      ...data,
+      redirect:false
+     })
+     .then((callback)=>{
+      if(callback?.error){
+        toast.error("Invalid Credentials")
+        setIsLoading(false)
+      }
+      if(callback?.ok){
+        toast.success("Welcome!")
+      }
+     })
     }
   };
 

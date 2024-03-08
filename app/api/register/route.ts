@@ -12,7 +12,6 @@ try{
         email,
         password
     } = body;
-    console.log(email,name,password,'inside roiter')
     if(!email || !password || !name){
         return new NextResponse('Missing info',{status:400});
     }
