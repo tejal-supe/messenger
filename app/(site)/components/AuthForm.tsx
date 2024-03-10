@@ -1,11 +1,11 @@
 "use client";
 // to let next 13 know that we are using it as a client component and not a server component
-import { useCallback, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import { useForm, FieldValues, SubmitHandler } from "react-hook-form";
 import { BsGithub, BsGoogle } from "react-icons/bs";
 import toast from "react-hot-toast";
 import axios from "axios";
-import { signIn } from "next-auth/react";
+import { signIn, useSession } from "next-auth/react";
 
 import Button from "@/app/components/Button";
 import Input from "@/app/components/Inputs/Input";
@@ -16,8 +16,16 @@ type Variant = "LOGIN" | "REGISTER";
 const Register_Api = config.REGISTER;
 
 const AuthForm = () => {
+  const session = useSession()
   const [variant, setVariant] = useState<Variant>("LOGIN");
   const [isLoading, setIsLoading] = useState(false);
+
+  useEffect(()=>{
+    if(session.status ==='authenticated'){
+      console.log("Autenticated");
+      
+    }
+  },[session.status])
 
   const toggleState = useCallback(() => {
     if (variant === "LOGIN") {
