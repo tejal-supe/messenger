@@ -3,7 +3,7 @@ import AuthForm from "./components/AuthForm";
 export default function Home() {
   return (
     <div className="flex min-h-full flex-col justify-center py-12 sm:px-6 lg:px-8 bg-gray-100">
-      <div className="sm:mx-auto sm:w-full sm:mx-w-md">
+      <div className="xs:mx-auto xs:w-full xs:mx-w-md">
         <Image
           alt="messanger logo"
           height="48"
