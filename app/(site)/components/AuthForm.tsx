@@ -11,21 +11,23 @@ import Button from "@/app/components/Button";
 import Input from "@/app/components/Inputs/Input";
 import AuthSocialButton from "./AuthSocialButton";
 import config from "@/app/config/routers.json";
+import { useRouter } from "next/navigation";
 
 type Variant = "LOGIN" | "REGISTER";
 const Register_Api = config.REGISTER;
 
 const AuthForm = () => {
-  const session = useSession()
+  const session = useSession();
+  const router = useRouter();
   const [variant, setVariant] = useState<Variant>("LOGIN");
   const [isLoading, setIsLoading] = useState(false);
 
   useEffect(()=>{
     if(session.status ==='authenticated'){
-      console.log("Autenticated");
+     router.push('/users')
       
     }
-  },[session.status])
+  },[session.status,router])
 
   const toggleState = useCallback(() => {
     if (variant === "LOGIN") {
@@ -56,7 +58,7 @@ const AuthForm = () => {
         .post(Register_Api, data)
         .then(() => {
           toast.success("User is created!");
-          setVariant("LOGIN");
+          signIn('credentials',data)
         })
         .catch(() => toast.error("Something went wrong while registering"))
         .finally(() => setIsLoading(false));
@@ -73,6 +75,7 @@ const AuthForm = () => {
           }
           if (callback?.ok && !callback?.error) {
             toast.success("Welcome!");
+            router.push('/users') 
           }
         })
         .finally(() => setIsLoading(false));
