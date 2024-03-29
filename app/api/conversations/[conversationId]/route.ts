@@ -1,8 +1,8 @@
-import getCurrentUser from "@/app/actions/getCurrentUser";
+import getCurrentUser from "../../../actions/getCurrentUser";
 import { NextResponse } from "next/server";
 
 import prisma from "../../../libs/prismaDb";
-import { pusherServer } from "@/app/libs/pusher";
+import { pusherServer } from "../../../libs/pusher";
 
 interface IParams {
   conversationId?: string;
